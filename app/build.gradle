@@ -9,14 +9,20 @@ android {
 
     defaultConfig {
         applicationId "com.example.mycplusapp"
-        minSdk 24
+        minSdk 29
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
         externalNativeBuild {
             cmake {
+                arguments "-DOpenCV_DIR=" + project(':opencv').projectDir + "\\native\\jni",
+                        "-DANDROID_TOOLCHAIN=clang",
+                        "-DANDROID_STL=c++_shared"
                 cppFlags '-std=c++17'
             }
         }
